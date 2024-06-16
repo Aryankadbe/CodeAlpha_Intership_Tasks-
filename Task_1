@@ -1,0 +1,75 @@
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Scanner;
+
+public class Student_Grade_Calculator {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        ArrayList<ArrayList<Integer>> TotalStudentsMarks = new ArrayList<>();
+
+        System.out.println("** Enter the total students count : ");
+        int totalStudents = sc.nextInt();
+
+        for (int i = 0; i < totalStudents; i++) {
+            ArrayList<Integer> marks = new ArrayList<>(5);
+            marks.ensureCapacity(5);
+
+
+            // Inputting marks for each student ::
+            System.out.println("\n** Enter the marks for Student "+ (i + 1) + " out of 100 (press 0 to quit):  ");
+            int subjMarks;
+
+            while (true) {
+                subjMarks = sc.nextInt();
+                if (subjMarks>100){
+                    System.out.println("Please enter marks out of 100 only!");
+                    break;
+                }
+                if (subjMarks == 0 ) {
+                    break;
+                }
+                marks.add(subjMarks);
+            }
+
+            TotalStudentsMarks.add(marks);
+
+            System.out.println("\n** Marks for Student " +(i+1)+" in the list are: " + marks);
+
+
+            //Showing the least and highest marks of the student ::
+            if(!marks.isEmpty()) {
+                Collections.sort(marks);
+                System.out.println("\n** The least marks are: " + marks.get(0));
+                System.out.println("And the highest marks Student "+(i+1)+" got are: " + marks.get(marks.size() - 1));
+            }
+
+
+            //Calculating the average of marks ::
+            int sumOfMarks = 0;
+            for (int iterator : marks) {
+                sumOfMarks += iterator;
+            }
+            double average = (double) sumOfMarks / marks.size();
+            System.out.println("\n** The average of your marks is : " + average);
+
+
+            //Grade assigned based on the percentages of student ::
+            int totalMarks = marks.size() * 100;
+            double percentageValue = ((double) sumOfMarks / totalMarks) * 100;
+            System.out.println("\n** Your percentages came out to be : " + percentageValue + " %");
+
+            //using nested loops for determining the respective grade ::
+            if (percentageValue > 90) {
+                System.out.println("\n** Grade A");
+            } else if (percentageValue > 75) {
+                System.out.println("\n** Grade B");
+            } else if (percentageValue > 50) {
+                System.out.println("\n** Grade C");
+            } else if (percentageValue <= 50) {
+                System.out.println("\n** Grade D");
+            } else {
+                System.out.println("\n** The grade for your marks doesn't exist");
+            }
+        }
+    }
+}
