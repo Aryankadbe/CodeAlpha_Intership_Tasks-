@@ -1,0 +1,83 @@
+import java.util.Scanner;
+
+public class BA {
+    static Scanner sc  = new Scanner(System.in);
+    public  static  boolean isTrue = true;
+
+    public static double totalDeposits = 1000;
+    //:: deposit() ::
+    public static void depositMoney(){
+        double depositAmt;
+        System.out.println("\nEnter the Amount your want to Deposit (INR): ");
+        depositAmt = sc.nextDouble();
+        if (depositAmt > 0){
+            totalDeposits += depositAmt;
+        }
+        System.out.println("\nYour Total Deposit Amount is (INR) : "+"Rs. "+depositAmt);
+    }
+
+
+    // :: withdraw() ::
+    public static void withdrawMoney(){
+        System.out.println("\nEnter the Amount to be Withdrawn : ");
+        double withdrawAmt = sc.nextDouble();
+        double remainingAmt = totalDeposits - withdrawAmt;
+        if (totalDeposits > 1000 && withdrawAmt < totalDeposits) {
+            if(remainingAmt >= 1000) {
+                totalDeposits -= withdrawAmt;
+                System.out.println("\nSuccessfully Withdrawn the Amount of Rs. " + withdrawAmt);
+            }
+            else {
+                System.out.println("\nMinimum Account Balance Limit Reached!!!");
+            }
+        }
+        else {
+            System.out.println("\nSorry, you've Reached the Minimum Balance Limit which is Rs.1000\nHence, the amount cannot be withdrawn!!");
+        }
+    }
+
+    // :: checking balance ::
+    public static void checkBalance(){
+        if (totalDeposits > 0) {
+            System.out.println("\nYour Current Account Balance is : Rs. "+totalDeposits);
+        }
+    }
+
+    // :: exiting the program ::
+    public static void exit(){
+        System.out.println("\n** Thank You For Using Our Application **");
+        isTrue = false;
+    }
+
+    public static int count = 50;
+    static String spaces = String.format("%"+count+"s", "");
+
+    public static void main(String[] args) {
+
+
+        System.out.println(spaces+"\n\n"+spaces+"Enter your choice : \n"+spaces+"1.Check Balance \n"+spaces+"2.Deposit Money \n"+spaces+"3.Withdraw Money \n"+spaces+"4.Exit");
+        while (isTrue) {
+            System.out.println("<< USER CHOICE >> = ");
+            int userChoice = sc.nextInt();
+            switch (userChoice) {
+                case 1:
+                    checkBalance();
+                    System.out.println(spaces+"\n\n"+spaces+"Enter your choice : \n"+spaces+"1.Check Balance \n"+spaces+"2.Deposit Money \n"+spaces+"3.Withdraw Money \n"+spaces+"4.Exit");
+                    break;
+                case 2:
+                    depositMoney();
+                    System.out.println(spaces+"\n\n"+spaces+"Enter your choice : \n"+spaces+"1.Check Balance \n"+spaces+"2.Deposit Money \n"+spaces+"3.Withdraw Money \n"+spaces+"4.Exit");
+                    break;
+                case 3:
+                    withdrawMoney();
+                    System.out.println(spaces+"\n\n"+spaces+"Enter your choice : \n"+spaces+"1.Check Balance \n"+spaces+"2.Deposit Money \n"+spaces+"3.Withdraw Money \n"+spaces+"4.Exit");
+                    break;
+                case 4:
+                    exit();
+                    break;
+                default:
+                    System.out.println("\n\n"+spaces+"Invalid Choice!\n"+spaces+"Please select a choice from the given menu.");
+            }
+        }
+    }
+}
